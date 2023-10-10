@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { signUp } from "./api.js";
+import { Input } from "./components/input.jsx";
 
 export function SignUp() {
   const [username, setUsername] = useState("");
@@ -12,8 +13,23 @@ export function SignUp() {
   const [generalError, setGeneralError] = useState("");
 
   useEffect(() => {
-    setErrors({});
+    setErrors(function (lastErrors) {
+      return {
+        ...lastErrors,
+        username: undefined,
+      };
+    });
   }, [username]);
+
+  useEffect(() => {
+    setErrors(function (lastErrors) {
+      return {
+        ...lastErrors,
+        email: undefined,
+      };
+    });
+  }, [email]);
+
   const onSubmit = async (event) => {
     event.preventDefault();
     setSuccessMessage("");
@@ -49,7 +65,19 @@ export function SignUp() {
             <h1>SignUp</h1>
           </div>
           <div className="card-body">
-            <div className="mb-3">
+            <Input
+              id="username"
+              label="Username"
+              error={errors.username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <Input
+              id="email"
+              label="E-mail"
+              error={errors.email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            {/*<div className="mb-3">
               <label htmlFor="username" className="form-label">
                 Username
               </label>
@@ -61,8 +89,8 @@ export function SignUp() {
                 onChange={(event) => setUsername(event.target.value)}
               />
               <div className="invalid-feedback">{errors.username}</div>
-            </div>
-            <div className="mb-3">
+            </div>*/}
+            {/*<div className="mb-3">
               <label htmlFor="email" className="form-label">
                 E-mail
               </label>
@@ -71,7 +99,7 @@ export function SignUp() {
                 className="form-control"
                 onChange={(event) => setEmail(event.target.value)}
               />
-            </div>
+            </div>*/}
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
                 Password

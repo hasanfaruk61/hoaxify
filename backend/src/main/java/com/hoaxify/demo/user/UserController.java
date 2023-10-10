@@ -33,7 +33,7 @@ public class UserController {
             validationErrors.put("email", "E-mail cannot be null");
         }
 
-        if (validationErrors.size() > 0) {
+        if (!validationErrors.isEmpty()) {
             apiError.setValidationErrors(validationErrors);
             return ResponseEntity.badRequest().body(apiError);
         }
