@@ -89,8 +89,8 @@ export function SignUp() {
                 onChange={(event) => setUsername(event.target.value)}
               />
               <div className="invalid-feedback">{errors.username}</div>
-            </div>*/}
-            {/*<div className="mb-3">
+            </div>
+            <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 E-mail
               </label>

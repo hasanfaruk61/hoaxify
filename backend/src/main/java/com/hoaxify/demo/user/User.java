@@ -1,6 +1,7 @@
 package com.hoaxify.demo.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -11,7 +12,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @NotBlank
     String username;
+    @NotBlank
     String email;
     String password;
 }
