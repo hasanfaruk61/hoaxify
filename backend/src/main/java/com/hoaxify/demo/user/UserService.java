@@ -1,5 +1,6 @@
 package com.hoaxify.demo.user;
 
+import com.hoaxify.demo.user.exception.ActivationNotificationException;
 import com.hoaxify.demo.user.exception.NotUniqueEmailException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,12 @@ public class UserService {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setActivationToken(UUID.randomUUID().toString());
-            userRepository.save(user);
+            userRepository.saveAndFlush(user);
             sendActivationEmail(user);
         } catch (DataIntegrityViolationException ex) {
             throw new NotUniqueEmailException();
+        } catch (MailException ex) {
+            throw new ActivationNotificationException();
         }
     }
 
